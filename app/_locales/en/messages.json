@@ -1,0 +1,14 @@
+{
+  "appName": {
+    "message": "Pomodoro Edit WebExt",
+    "description": "The name of the application"
+  },
+  "appShortName": {
+    "message": "pomodoro-edit",
+    "description": "The short_name (maximum of 12 characters recommended) is a short version of the app's name."
+  },
+  "appDescription": {
+    "message": "Notification for Pomodoro Edit",
+    "description": "The description of the application"
+  }
+}
