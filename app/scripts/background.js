@@ -14,7 +14,7 @@ function connect() {
   };
 
   socket.onmessage = event => {
-    new Notification(event.data);
+    new Notification(event.data, { icon: 'images/icon-128.png'});
   };
 }
 
