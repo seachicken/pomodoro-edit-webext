@@ -1,7 +1,5 @@
 {
-  "name": "Pomodoro-Edit-WebExt",
-  "version": "0.0.1",
-  "description": "Notification for Pomodoro Edit",
+  "name": "pomodoro-edit-webext",
   "scripts": {
     "dev": "webextension-toolbox dev",
     "build": "webextension-toolbox build"
