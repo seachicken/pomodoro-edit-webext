@@ -5,12 +5,10 @@ function connect() {
     chrome.browserAction.enable();
   };
 
-  socket.onerror = err => {
-    setTimeout(() => connect(), 5000);
-  };
-
   socket.onclose = () => {
     chrome.browserAction.disable();
+
+    setTimeout(() => connect(), 5000);
   };
 
   socket.onmessage = event => {
