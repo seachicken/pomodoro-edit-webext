@@ -17,7 +17,7 @@ function connect() {
 
     switch (ptext.type) {
       case 'interval':
-        const time = `${Math.floor(ptext.remaining / 60).toString().padStart(2, 0)}m`;
+        const time = Math.floor(ptext.remaining / 60).toString().padStart(2, 0);
         chrome.browserAction.setBadgeText({ text: time });
 
         chrome.runtime.sendMessage(ptext);
