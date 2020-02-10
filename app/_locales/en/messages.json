@@ -8,7 +8,7 @@
     "description": "The short_name (maximum of 12 characters recommended) is a short version of the app's name."
   },
   "appDescription": {
-    "message": "View events of Pomodoro Edit",
+    "message": "Display notifications and remaining time in sync with text editor extensions",
     "description": "The description of the application"
   }
 }
