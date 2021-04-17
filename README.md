@@ -1,4 +1,4 @@
-# Pomodoro Edit WebExt
+# <img src="https://raw.githubusercontent.com/seachicken/pomodoro-edit-core/master/.github/logo.png" align="right" width="100"> Pomodoro Edit WebExt
 
 ## Development
 
