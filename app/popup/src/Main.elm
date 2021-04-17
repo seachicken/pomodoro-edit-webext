@@ -63,7 +63,7 @@ view model =
                 (model.remaining // 60 |> String.fromInt) ++ ":" ++ String.padLeft 2 '0' (modBy 60 model.remaining |> String.fromInt)
 
         percent =
-            1 - toFloat model.remaining / toFloat model.time
+            toFloat model.remaining / toFloat model.time
 
         progressWidth =
             200
@@ -74,7 +74,7 @@ view model =
             , Css.paddingBottom (px 10)
             , Css.paddingLeft (px 20)
             , Css.paddingRight (px 20)
-            , minWidth (px progressWidth)
+            , Css.width (px progressWidth)
             , backgroundColor (hex "#3b3b3b")
             , color (hex "#fff")
             , Css.fontSize (Css.em 1.3)
@@ -86,10 +86,10 @@ view model =
                 [ Css.position Css.absolute
                 , Css.width (px progressWidth)
                 , Css.height (px progressWidth)
-                , Css.top (Css.pct 45)
+                , Css.lineHeight (px progressWidth)
                 , Css.textAlign Css.center
                 , color (hex "#fff")
-                , Css.fontSize (Css.em 1.9)
+                , Css.fontSize (Css.em 2.3)
                 ]
             ]
             [ text time

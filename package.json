@@ -5,6 +5,7 @@
     "build": "webextension-toolbox build"
   },
   "devDependencies": {
-    "webextension-toolbox": "latest"
+    "elm-format": "^0.8.5",
+    "webextension-toolbox": "^3.0.0"
   }
 }

@@ -23,7 +23,7 @@ function connect() {
         chrome.runtime.sendMessage(ptext);
         break;
       case 'finish':
-        new Notification(ptext.content, { icon: 'images/icon-128.png'});
+        new Notification(`Finished! ${ptext.content}`, { icon: 'images/icon-128.png'});
         break;
     }
   };
