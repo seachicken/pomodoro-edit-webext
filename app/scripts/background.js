@@ -17,13 +17,22 @@ function connect() {
 
     switch (ptext.type) {
       case 'interval':
-        const time = `${Math.floor(ptext.remaining / 60)}:${(ptext.remaining % 60).toString().padStart(2, 0)}`;
+        const time = `${Math.floor(ptext.remainingSec / 60)}:${(ptext.remainingSec % 60).toString().padStart(2, 0)}`;
         chrome.browserAction.setBadgeText({ text: time });
 
         chrome.runtime.sendMessage(ptext);
         break;
+      case 'step':
+        new Notification('🍅 Go to the next step', {
+          body: ptext.content,
+          icon: 'images/icon-128.png'
+        });
+        break;
       case 'finish':
-        new Notification(`Finished! ${ptext.content}`, { icon: 'images/icon-128.png'});
+        new Notification('🍅 Finished!', {
+          body: ptext.content,
+          icon: 'images/icon-128.png'
+        });
         break;
     }
   };

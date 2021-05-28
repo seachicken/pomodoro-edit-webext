@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const app = Elm.Main.init({
     node: document.getElementById('elm'),
-    flags: { operator: '', time: 0, content: '☕️ No tasks', remaining: 0 }
+    flags: { operator: '', remainingSec: 0, durationSec: 0, content: '☕️ No tasks', stepNos: '' }
   });
 
   chrome.runtime.onMessage.addListener(message => {

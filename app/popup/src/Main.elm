@@ -1,11 +1,12 @@
 port module Main exposing (main)
 
 import Browser
-import Css exposing (backgroundColor, color, hex, minWidth, px)
-import Html.Styled exposing (Html, div, text, toUnstyled)
+import Css exposing (backgroundColor, color, hex, px)
+import Html.Styled exposing (Html, div, text)
 import Html.Styled.Attributes exposing (css)
 import Json.Decode exposing (Decoder, Value, decodeValue, field, int, map4, string)
-import Svg.Styled exposing (Svg, g, svg, toUnstyled)
+import String exposing (length)
+import Svg.Styled exposing (Svg, g, svg)
 import Svg.Styled.Attributes exposing (cx, cy, fill, r, stroke, transform, viewBox)
 
 
@@ -13,16 +14,16 @@ port receiveMessage : (Value -> msg) -> Sub msg
 
 
 type alias PomodoroText =
-    { operator : String
-    , time : Int
-    , remaining : Int
+    { remainingSec : Int
+    , durationSec : Int
     , content : String
+    , stepNos : String
     }
 
 
 init : PomodoroText -> ( PomodoroText, Cmd Msg )
 init flags =
-    ( PomodoroText flags.operator flags.time flags.remaining flags.content
+    ( PomodoroText flags.durationSec flags.remainingSec flags.content flags.stepNos
     , Cmd.none
     )
 
@@ -34,10 +35,10 @@ type Msg
 decoder : Decoder PomodoroText
 decoder =
     map4 PomodoroText
-        (field "operator" string)
-        (field "time" int)
-        (field "remaining" int)
+        (field "remainingSec" int)
+        (field "durationSec" int)
         (field "content" string)
+        (field "stepNos" string)
 
 
 update : Msg -> PomodoroText -> ( PomodoroText, Cmd Msg )
@@ -49,21 +50,28 @@ update msg _ =
                     ( model, Cmd.none )
 
                 Err _ ->
-                    ( PomodoroText "" 0 0 "", Cmd.none )
+                    ( PomodoroText 0 0 "" "", Cmd.none )
 
 
 view : PomodoroText -> Html Msg
 view model =
     let
         time =
-            if model.remaining == 0 then
+            if model.remainingSec == 0 then
                 ""
 
             else
-                (model.remaining // 60 |> String.fromInt) ++ ":" ++ String.padLeft 2 '0' (modBy 60 model.remaining |> String.fromInt)
+                (model.remainingSec // 60 |> String.fromInt) ++ ":" ++ String.padLeft 2 '0' (modBy 60 model.remainingSec |> String.fromInt)
+
+        title =
+            if length model.stepNos == 0 then
+                model.content
+
+            else
+                model.content ++ " #" ++ model.stepNos
 
         percent =
-            toFloat model.remaining / toFloat model.time
+            toFloat model.remainingSec / toFloat model.durationSec
 
         progressWidth =
             200
@@ -80,7 +88,7 @@ view model =
             , Css.fontSize (Css.em 1.3)
             ]
         ]
-        [ text model.content
+        [ text title
         , div
             [ css
                 [ Css.position Css.absolute
