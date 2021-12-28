@@ -1,23 +1,24 @@
 {
-  "name": "__MSG_appName__",
-  "short_name": "__MSG_appShortName__",
-  "description": "__MSG_appDescription__",
-  "version": "2.0.0",
-  "manifest_version": 2,
+  "name": "Pomodoro Edit",
+  "description": "Notification for Pomodoro Edit",
+  "version": "3.0.0",
+  "manifest_version": 3,
   "default_locale": "en",
   "icons": {
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
   },
-  "browser_action": {
+  "action": {
     "default_popup": "popup/index.html"
   },
   "background": {
-    "scripts": [
-      "scripts/background.js"
-    ]
+    "service_worker": "background.js"
   },
   "permissions": [
+    "alarms",
     "notifications"
+  ],
+  "host_permissions": [
+    "ws://localhost/"
   ]
 }
