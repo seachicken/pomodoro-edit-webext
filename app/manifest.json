@@ -19,6 +19,6 @@
     "notifications"
   ],
   "host_permissions": [
-    "ws://localhost/"
+    "*://localhost/"
   ]
 }
