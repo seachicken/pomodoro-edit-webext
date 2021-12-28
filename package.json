@@ -1,11 +1,7 @@
 {
   "name": "pomodoro-edit-webext",
-  "scripts": {
-    "dev": "webextension-toolbox dev",
-    "build": "webextension-toolbox build"
-  },
+  "scripts": {},
   "devDependencies": {
-    "elm-format": "^0.8.5",
-    "webextension-toolbox": "^3.0.0"
+    "elm-format": "^0.8.5"
   }
 }
