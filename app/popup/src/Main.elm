@@ -4,7 +4,7 @@ import Browser
 import Css exposing (backgroundColor, color, hex, px)
 import Html.Styled exposing (Html, div, text)
 import Html.Styled.Attributes exposing (css)
-import Json.Decode exposing (Decoder, Value, decodeValue, field, int, map4, string)
+import Json.Decode exposing (Decoder, Value, decodeValue, field, int, map5, string)
 import String exposing (length)
 import Svg.Styled exposing (Svg, g, svg)
 import Svg.Styled.Attributes exposing (cx, cy, fill, r, stroke, transform, viewBox)
@@ -18,12 +18,13 @@ type alias PomodoroText =
     , durationSec : Int
     , content : String
     , stepNos : String
+    , symbol : String
     }
 
 
 init : PomodoroText -> ( PomodoroText, Cmd Msg )
 init flags =
-    ( PomodoroText flags.durationSec flags.remainingSec flags.content flags.stepNos
+    ( PomodoroText flags.durationSec flags.remainingSec flags.content flags.stepNos flags.symbol
     , Cmd.none
     )
 
@@ -34,11 +35,12 @@ type Msg
 
 decoder : Decoder PomodoroText
 decoder =
-    map4 PomodoroText
+    map5 PomodoroText
         (field "remainingSec" int)
         (field "durationSec" int)
         (field "content" string)
         (field "stepNos" string)
+        (field "symbol" string)
 
 
 update : Msg -> PomodoroText -> ( PomodoroText, Cmd Msg )
@@ -50,7 +52,7 @@ update msg _ =
                     ( model, Cmd.none )
 
                 Err _ ->
-                    ( PomodoroText 0 0 "" "", Cmd.none )
+                    ( PomodoroText 0 0 "" "" "", Cmd.none )
 
 
 view : PomodoroText -> Html Msg
@@ -64,11 +66,11 @@ view model =
                 (model.remainingSec // 60 |> String.fromInt) ++ ":" ++ String.padLeft 2 '0' (modBy 60 model.remainingSec |> String.fromInt)
 
         title =
-            if length model.stepNos == 0 then
+            if length model.stepNos == 0 && length model.symbol == 0 then
                 model.content
 
             else
-                model.content ++ " #" ++ model.stepNos
+                model.content ++ " " ++ model.symbol ++ "#" ++ model.stepNos
 
         percent =
             toFloat model.remainingSec / toFloat model.durationSec
