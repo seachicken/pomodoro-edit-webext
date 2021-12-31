@@ -1,5 +1,7 @@
+let socket;
+
 function connect() {
-  const socket = new WebSocket('ws://localhost:62115');
+  socket = new WebSocket('ws://localhost:62115');
 
   socket.onopen = () => {
     chrome.action.enable();
@@ -8,8 +10,6 @@ function connect() {
   socket.onclose = () => {
     chrome.action.disable();
     chrome.action.setBadgeText({ text: '' });
-
-    chrome.alarms.create({ delayInMinutes: 1 });
   };
 
   socket.onmessage = event => {
@@ -42,7 +42,12 @@ function connect() {
   };
 }
 
-chrome.alarms.onAlarm.addListener(() => connect());
+chrome.alarms.onAlarm.addListener(() => {
+  if (socket) socket.close();
+  connect();
+});
+chrome.alarms.create({ delayInMinutes: 1, periodInMinutes: 1 });
+
 chrome.action.setBadgeBackgroundColor({ color: '#000' });
 
 connect();
