@@ -46,7 +46,8 @@ chrome.alarms.onAlarm.addListener(() => {
   if (socket) socket.close();
   connect();
 });
-chrome.alarms.create({ delayInMinutes: 1, periodInMinutes: 1 });
+// After 30 seconds, Service Worker will become inactive, so reconnect WebSocket
+chrome.alarms.create({ delayInMinutes: 0.51, periodInMinutes: 0.51 });
 
 chrome.action.setBadgeBackgroundColor({ color: '#000' });
 
