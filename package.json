@@ -2,6 +2,6 @@
   "name": "pomodoro-edit-webext",
   "scripts": {},
   "devDependencies": {
-    "elm-format": "^0.8.5"
+    "elm-format": "^0.8.7"
   }
 }
